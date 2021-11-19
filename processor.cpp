@@ -34,6 +34,48 @@ int stack_ctor(Stack* stack1)
     return ALL_OK;
 }
 
+int execute()
+{
+    while(1){
+        int cmd = 0;
+        fscanf(processor->code, "%d", &cmd);
+        switch(cmd)
+        {
+            case PUSH:
+            {
+                int val = 0;
+                fscanf(processor->code, "%d", &val);
+                stack_push(&stk, val);
+                break;
+            }
+
+            case POP:
+            {
+                int del = stack_pop(&stk);
+                break;
+            }
+            case MUL:
+            {
+                stack_push(&stk, stack_pop(&stk) * stack_pop(&stk));
+                break;
+            }
+            case ADD:
+            {
+                stack_push(&stk, stack_pop(&stk) + stack_pop(&stk));
+                break;
+            }
+            case SUB:
+            {
+                int x1 = 0, x2 = 0;
+                x1 = stack_pop(&stk);
+                x2 = stack_pop(&stk);
+                stack_push(&stk, x1 - x2);
+                break;
+            }
+        }
+    }
+}
+
 int processor(Stack* stack1)
 {
     int pc = 0;

@@ -14,7 +14,7 @@ int main()
     processor proc = {};
 
     FILE* file_asm = fopen("asm.txt", "r");
-    FILE* code_txt = fopen("code", "w+");
+    FILE* code_txt = fopen("code.txt", "w+");
     FILE* file_lst = fopen("file.lst", "w+");
     printf("%p\n", file_asm);
 
@@ -39,10 +39,8 @@ int* asembler(FILE* file_asm, FILE* code_txt, FILE* file_lst, errors_t* error)
     int capacity = 10;
     int* code = (int*)calloc(capacity, sizeof(int));
     int* new_memory = NULL;
-
     while( !feof(file_asm) ){
         len = 0;
-
         if(capacity <= index + 2){   //+ max length of comand (+ 2)
             if((new_memory = (int*)realloc(code, (capacity * CHANGE + 3) * sizeof(int))) == NULL){
                 *error = NOT_MEMORY;
@@ -54,6 +52,7 @@ int* asembler(FILE* file_asm, FILE* code_txt, FILE* file_lst, errors_t* error)
             }
         }
 
+        /**/
         while((sym = getc(file_asm)) == ' ' || sym == '\n')
             ;
 
@@ -69,6 +68,7 @@ int* asembler(FILE* file_asm, FILE* code_txt, FILE* file_lst, errors_t* error)
         }
         str[len] = '\0';
 
+        //printf("%s\n", str);
 
         if(strcmp(str, comands_names[PUSH]) == 0){
             code[index] = PUSH;
@@ -161,9 +161,9 @@ int* asembler(FILE* file_asm, FILE* code_txt, FILE* file_lst, errors_t* error)
         else if(strcmp(str, comands_names[HLT]) == 0){
             code[index] = HLT;
             index++;
-        }
+        }/**/
 
-        /*while((sym = getc(file_asm)) == ' ' || sym == '\n')
+        while((sym = getc(file_asm)) == ' ' || sym == '\n')
             ;
 
         if(sym == EOF)
@@ -179,18 +179,60 @@ int* asembler(FILE* file_asm, FILE* code_txt, FILE* file_lst, errors_t* error)
         str[len] = '\0';
         //printf("s = %s push = %s %d\n", str, comands_names[PUSH], strcmp(str, comands_names[PUSH]));
         if(strcmp(str, comands_names[PUSH]) == 0){
-            sym = getc(file_asm);
-            if(sym == '-')
-                fprintf(code_txt,"%d -%d\n", PUSH, getc(file_asm) - '0');
-            else
-                fprintf(code_txt,"%d %d\n", PUSH, sym - '0');
+            while((sym = getc(file_asm)) == ' ' || sym == '\n')
+                ;
+
+            if(sym == '-'){
+                len = 0;
+                while((sym = getc(file_asm)) != ' ' && (sym) != '\n'){
+                    str[len] = sym;
+                    len++;
+                }
+                str[len] = '\0';
+                fprintf(code_txt,"%d -%d\n", PUSH, atoi(str));
+            }
+
+            else{
+                len = 0;
+                str[len] = sym;
+                printf("sym = %d ", sym - '0');
+                len++;
+                while((sym = getc(file_asm)) != ' ' && (sym) != '\n'){
+                    str[len] = sym;
+                    len++;
+                }
+
+                str[len] = '\0';
+                fprintf(code_txt,"%d %d\n", PUSH, atoi(str));
+            }
         }
         else if(strcmp(str, comands_names[POP]) == 0){
-            sym = getc(file_asm);
-            if(sym == '-')
-                fprintf(code_txt,"%d -%d\n", POP, getc(file_asm) - '0');
-            else
-                fprintf(code_txt,"%d %d\n", POP, sym - '0');
+            while((sym = getc(file_asm)) == ' ' || sym == '\n')
+                ;
+
+            if(sym == '-'){
+                len = 0;
+                while((sym = getc(file_asm)) != ' ' && (sym) != '\n'){
+                    str[len] = sym;
+                    len++;
+                }
+                str[len] = '\0';
+                fprintf(code_txt,"%d -%d\n", POP, atoi(str));
+            }
+
+            else{
+                len = 0;
+                str[len] = sym;
+                printf("sym = %d ", sym - '0');
+                len++;
+                while((sym = getc(file_asm)) != ' ' && (sym) != '\n'){
+                    str[len] = sym;
+                    len++;
+                }
+
+                str[len] = '\0';
+                fprintf(code_txt,"%d %d\n", POP, atoi(str));
+            }
         }
         else if(strcmp(str, comands_names[MUL]) == 0){
             fprintf(code_txt,"%d\n", MUL);
@@ -206,7 +248,7 @@ int* asembler(FILE* file_asm, FILE* code_txt, FILE* file_lst, errors_t* error)
         }
         else if(strcmp(str, comands_names[HLT]) == 0){
             fprintf(code_txt,"%d\n", HLT);
-        }*/
+        }
 
     }
 
