@@ -22,12 +22,45 @@
     stack_dump(stack1, reason);\
 }
 
-const int POISON = 666;
-int* POINTER_13 = (int*)13;
-int CHANGE = 2;
-const int CANARY_VALUE = 0xBADDED;
-int previous_hash_value;
-int hash_value;
+static int CHANGE = 2;
+static const int POISON = 666;
+static int* POINTER_13 = (int*)13;
+static const int CANARY_VALUE = 0xBADDED;
+static int previous_hash_value;
+static int hash_value;
+
+typedef enum comands{
+    OUT  = 0,
+    HLT  = 1,
+    PUSH = 17,
+    POP  = 18,
+    ADD  = 2,
+    SUB  = 3,
+    MUL  = 4,
+    IN   = 7,
+}comands_t;
+
+static const char *comands_names[] = {
+        "out",
+        "hlt",
+        "add",
+        "sub",
+        "mul",  //4
+        "",
+        "",
+        "in",
+        "",
+        "",
+        "",
+        "",     //11
+        "",
+        "",
+        "",
+        "",
+        "",
+        "push", //17
+        "pop",
+};
 
 struct Stack
 {
@@ -47,42 +80,12 @@ struct Stack
 };
 
 
-typedef enum comands{
-    OUT  = 0,
-    HLT  = 1,
-    PUSH = 17,
-    POP  = 18,
-    ADD  = 2,
-    SUB  = 3,
-    MUL  = 4,
-}comands_t;
-
-char *comands_names[] = {
-        "out",
-        "hlt",
-        "add",
-        "sub",
-        "mul",  //4
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",     //11
-        "",
-        "",
-        "",
-        "",
-        "",
-        "push", //17
-        "pop",
-};
-
-struct processor{
+typedef struct processor{
     int regs[4];
     struct Stack stack1 = {};
     int* code;
-};
+    long int size_code = 0;
+    FILE* code_bin = NULL;
+}Processor;
 
 

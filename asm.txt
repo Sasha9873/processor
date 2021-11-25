@@ -1,0 +1,14 @@
+push 56
+push 5
+mul
+push 4
+mul
+push 4
+push 100
+push 6
+pop 4
+mul
+sub
+add
+out
+hlt

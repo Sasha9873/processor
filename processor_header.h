@@ -1,8 +1,10 @@
 #pragma once
 
+#include "header.h"
 #include <cmath>
+//#include "C:\Users\lenovo\Desktop\infa\C\summer_school\stack\stack.cpp"
 
-char *error_names[] = {
+static const char *error_names[] = {
     "All is ok",
     "Not enough memory",
     "Two ctors",
@@ -32,15 +34,17 @@ typedef enum errors{ALL_OK            = 0,
                     DATA_END_CANARY   = -10,
                     DATA_POINTER      = -11,
                     CAP_SMALLER_SIZE  = -12,
-                    WRONG_HASH        = -13}
+                    WRONG_HASH        = -13,
+                    NO_SUCH_COMAND    = -14}
 errors_t;
 
-int stack_ctor(Stack* stack1);
+int execute(Stack* stk, processor* processor);
 int stack_push(Stack* stack1, int value);
 int stack_pop(Stack* stack1);
 int stack_dtor(Stack* stack1);
 errors_t stack_ok(Stack* stack1);    //enum errors stack_ok
 int stack_dump(Stack* stack1, errors_t reason = ALL_OK);
 int stack_hash(Stack* stack1, errors_t reason = ALL_OK);
+int stack_print(Stack* stack1);
 
-int processor(Stack* stack1);
+int processor(Stack* stack1, processor* processor);

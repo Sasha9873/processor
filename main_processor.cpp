@@ -1,4 +1,3 @@
-#include "header.h"
 #include "processor_header.h"
 #include "processor.cpp"
 
@@ -6,8 +5,26 @@
 int main()
 {
     FILE* code_txt = fopen("code.txt", "r");
+    Processor proc = {};
+    Stack stk = {};
+    proc.code_bin = fopen("code.bin", "r");/**/
 
-    processor(Stack* stack1);
+    printf("\n    %d\n", proc.size_code);
+    fseek(proc.code_bin, 0, SEEK_END);
+    proc.size_code = ftell(proc.code_bin);
+    fseek(proc.code_bin, 0, SEEK_SET);
+
+    proc.code = (int*)calloc(proc.size_code, sizeof(int));
+
+    printf("size = %d\n", proc.size_code);
+    //printf
+    fread(proc.code, sizeof(int), proc.size_code/sizeof(int), proc.code_bin);
+    for(int len = 0; len <= proc.size_code; len++)
+            printf("%d" ,proc.code[len]);
+
+    printf("\n");
+
+    execute(&stk, &proc);
 
     fclose(code_txt);
 
