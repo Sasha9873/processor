@@ -43,20 +43,27 @@ int* asembler(FILE* file_asm, FILE* code_txt, errors_t* error, struct processor*
     int index = 0;
     int capacity = 10;
     int* code = (int*)calloc(capacity, sizeof(int));
+    printf("memory = %p\n", code);
     int* new_memory = NULL;
     int position = 0;
 
     while( !feof(file_asm) ){
         len = 0;
-        if(capacity <= index + 3){   //+ max length of comand + 1 (+ 3)
-            if((new_memory = (int*)realloc(code, (capacity * CHANGE + 3) * sizeof(int))) == NULL){
-                *error = NOT_MEMORY;
-                return code;
+        if(capacity > 0){
+            if(capacity <= index + 3){   //+ max length of comand + 1 (+ 3)
+                if((new_memory = (int*)realloc(code, (capacity * CHANGE + 3) * sizeof(int))) == NULL){
+                    *error = NOT_MEMORY;
+                    return code;
+                }
+                else{
+                    code = new_memory;
+                    capacity = capacity * CHANGE + 3;
+                }
             }
-            else{
-                code = new_memory;
-                capacity = capacity * CHANGE + 3;
-            }
+        }
+        else{
+            capacity = 10;
+            int* code = (int*)calloc(capacity, sizeof(int));
         }
 
         while((sym = getc(file_asm)) == ' ' || sym == '\n')
@@ -187,6 +194,13 @@ int* asembler(FILE* file_asm, FILE* code_txt, errors_t* error, struct processor*
             fprintf(code_txt,"%04d   %02x\t\t\t HLT\n", position, HLT);
 
             position++;
+        }
+        else if(strcmp(str, comands_names[IN]) == 0){
+            code[index] = IN;
+            index++;
+            fprintf(code_txt,"%04d   %02x\t\t\t IN\n", position, IN);
+
+            position++;
         }/**/
 
     }
@@ -201,6 +215,9 @@ int* asembler(FILE* file_asm, FILE* code_txt, errors_t* error, struct processor*
     fprintf(code_txt, "\n");
 
     fwrite(code, sizeof(code[0]), index, proc->code_bin);/**/
+
+    free(code);
+    code = NULL;
 
     return code;
 }

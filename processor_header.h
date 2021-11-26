@@ -18,7 +18,10 @@ static const char *error_names[] = {
     "Wrong end data canary",
     "Bad data pointer",
     "Capacity smaller then size",    //12
-    "Wrong hash"
+    "Wrong hash",
+    "This command does not exist",
+    "Pop in empty stack",
+    "You wrote not a number",       //16
 };
 
 typedef enum errors{ALL_OK            = 0,
@@ -35,7 +38,9 @@ typedef enum errors{ALL_OK            = 0,
                     DATA_POINTER      = -11,
                     CAP_SMALLER_SIZE  = -12,
                     WRONG_HASH        = -13,
-                    NO_SUCH_COMAND    = -14}
+                    NO_SUCH_COMAND    = -14,
+                    POP_EMPTY_STACK   = -15,
+                    WRONG_VALUE       = -16,}
 errors_t;
 
 int execute(Stack* stk, processor* processor);
