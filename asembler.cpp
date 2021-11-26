@@ -46,8 +46,9 @@ int* asembler(FILE* file_asm, FILE* code_txt, errors_t* error, struct processor*
     printf("memory = %p\n", code);
     int* new_memory = NULL;
     int position = 0;
+    int value = 0;
 
-    while( !feof(file_asm) ){
+    while(!feof(file_asm) ){
         len = 0;
         if(capacity > 0){
             if(capacity <= index + 3){   //+ max length of comand + 1 (+ 3)
@@ -66,98 +67,29 @@ int* asembler(FILE* file_asm, FILE* code_txt, errors_t* error, struct processor*
             int* code = (int*)calloc(capacity, sizeof(int));
         }
 
-        while((sym = getc(file_asm)) == ' ' || sym == '\n')
-            ;
-
-        if(sym == EOF)
+        if(fscanf(file_asm, "%s", str) != 1)
             break;
-
-        str[len] = sym;
-        len++;
-
-        while((sym = getc(file_asm)) != ' ' && (sym) != '\n'){
-            str[len] = sym;
-            len++;
-        }
-        str[len] = '\0';
 
         if(strcmp(str, comands_names[PUSH]) == 0){
             code[index] = PUSH;
             printf("%d ", code[index]);
             index++;
 
-            while((sym = getc(file_asm)) == ' ' || sym == '\n')
-                ;
+            while(fscanf(file_asm, "%d", &value) != 1)
+                getc(file_asm);
 
-            if(sym == '-'){
-                len = 0;
-                while((sym = getc(file_asm)) != ' ' && (sym) != '\n'){
-                    str[len] = sym;
-                    len++;
-                }
-                str[len] = '\0';
-                code[index] = -atoi(str);
-                fprintf(code_txt,"%04d   %02x %02x   PUSH %d\n", position, PUSH, -atoi(str), -atoi(str));
-            }
-            else{
-                len = 0;
-                str[len] = sym;
-                printf("sym = %d ", sym - '0');
-                len++;
-                while((sym = getc(file_asm)) != ' ' && (sym) != '\n'){
-                    str[len] = sym;
-                    len++;
-                }
+            code[index] = value;
 
-                str[len] = '\0';
-                code[index] = atoi(str);
-                printf("%d\n", code[index]);
-                fprintf(code_txt,"%04d   %02x %02x\t\t PUSH %d\n", position, PUSH, atoi(str), atoi(str));
-            }
-            index++;
-            for(len = 0; len < index; len++)
-                printf(":%d " ,code[len]);
-            printf("\n");
-
-            position +=2;
+            printf("%d\n", code[index]);
+            fprintf(code_txt,"%04d   %02x %02x\t\t PUSH %d\n", position, PUSH, value, value);
         }
 
         else if(strcmp(str, comands_names[POP]) == 0){
             code[index] = POP;
+            printf("%d ", code[index]);
             index++;
 
-            while((sym = getc(file_asm)) == ' ' || sym == '\n')
-                ;
-
-            if(sym == '-'){
-                len = 0;
-                while((sym = getc(file_asm)) != ' ' && (sym) != '\n'){
-                    str[len] = sym;
-                    len++;
-                }
-                str[len] = '\0';
-                code[index] = -atoi(str);
-                fprintf(code_txt,"%04d   %02x %02x   POP  %d\n", position, POP, -atoi(str), -atoi(str));
-            }
-
-            else{
-                len = 0;
-                str[len] = sym;
-                printf("sym = %d ", sym - '0');
-                len++;
-                while((sym = getc(file_asm)) != ' ' && (sym) != '\n'){
-                    str[len] = sym;
-                    len++;
-                }
-
-                str[len] = '\0';
-                code[index] = atoi(str);
-                printf("%d\n", code[len]);
-                fprintf(code_txt,"%04d   %02x %02x\t\t POP  %d\n", position, POP, atoi(str), atoi(str));
-            }
-            index++;
-
-            position +=2;
+            fprintf(code_txt,"%04d   %02x\t\t\t POP\n", position, POP);
         }
 
         else if(strcmp(str, comands_names[MUL]) == 0){
