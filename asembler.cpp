@@ -1,10 +1,13 @@
 //failed if do push 10
+//что делать, если надо вернуться в файде на позицию назад
+//что делать с pop в регистрах
 
 #include "header.h"
 
 typedef enum errors{
     ALL_OK     =  0,
     NOT_MEMORY = -1,
+    BAD_REG    = -2,
 }errors_t;
 
 
@@ -37,21 +40,22 @@ int main()
 
 int* asembler(FILE* file_asm, FILE* code_txt, errors_t* error, struct processor* proc)
 {
-    char str[10];
-    int len = 0;
+    char cmd[10];
+    char reg[10];
     char sym = '\0';
-    int index = 0;
     int capacity = 10;
     int* code = (int*)calloc(capacity, sizeof(int));
     printf("memory = %p\n", code);
     int* new_memory = NULL;
-    int position = 0;
+    proc->ip = 0;
     int value = 0;
+    int len = 0;
+    int pop_cmd = 0;
 
     while(!feof(file_asm) ){
         len = 0;
         if(capacity > 0){
-            if(capacity <= index + 3){   //+ max length of comand + 1 (+ 3)
+            if(capacity <= proc->ip + 3){   //+ max length of comand + 1 (+ 3)
                 if((new_memory = (int*)realloc(code, (capacity * CHANGE + 3) * sizeof(int))) == NULL){
                     *error = NOT_MEMORY;
                     return code;
@@ -67,91 +71,142 @@ int* asembler(FILE* file_asm, FILE* code_txt, errors_t* error, struct processor*
             int* code = (int*)calloc(capacity, sizeof(int));
         }
 
-        if(fscanf(file_asm, "%s", str) != 1)
+        if(fscanf(file_asm, "%s", cmd) != 1)
             break;
 
-        if(strcmp(str, comands_names[PUSH]) == 0){
-            code[index] = PUSH;
-            printf("%d ", code[index]);
-            index++;
+        if(strcmp(cmd, comands_names[PUSH]) == 0){
+            getc(file_asm);
+            /*while((sym = fgetc(file_asm)) == '\n' || sym == ' ' || sym =='\t')  //miss all white symbols
+                sym = getc(file_asm);
+            if(sym == EOF)
+                break;
+            else{
+                printf("sss = %d\n", sym);
+                fseek(file_asm, ftell(file_asm) - sizeof(char), SEEK_SET);     //returns to first not white symbol
+            }*/
 
-            while(fscanf(file_asm, "%d", &value) != 1)
-                getc(file_asm);
+            if(fscanf(file_asm, "%d", &value) == 1){
+                code[proc->ip] = PUSH;
+                printf("%d ", code[proc->ip]);
+                proc->ip++;
 
-            code[index] = value;
+                code[proc->ip] = value;
 
-            printf("%d\n", code[index]);
-            fprintf(code_txt,"%04d   %02x %02x\t\t PUSH %d\n", position, PUSH, value, value);
+                printf("%d\n", code[proc->ip]);
+                fprintf(code_txt,"%04d   %02x %02x\t\t PUSH %d\n", proc->ip - 1, PUSH, value, value);
+            }
+            else{
+                printf("reg\n");
+                code[proc->ip] = RPUSH;
+                printf("%d ", code[proc->ip]);
+                proc->ip++;
+
+                fscanf(file_asm, "%s", reg);
+                if(strcmp(reg, "rax") == 0)
+                    code[proc->ip] = 1;
+                else if(strcmp(reg, "rbx") == 0)
+                    code[proc->ip] = 2;
+                else if(strcmp(reg, "rcx") == 0)
+                    code[proc->ip] = 3;
+                else if(strcmp(reg, "rdx") == 0)
+                    code[proc->ip] = 4;
+                else{
+                    *error = BAD_REG;
+                    return code;
+                }
+
+
+                printf("%d\n", code[proc->ip]);
+                fprintf(code_txt,"%04d   %02x %02x\t\t RPUSH %d\n", proc->ip - 1, RPUSH, code[proc->ip], code[proc->ip]);
+            }
+            proc->ip++;
+
         }
 
-        else if(strcmp(str, comands_names[POP]) == 0){
-            code[index] = POP;
-            printf("%d ", code[index]);
-            index++;
+        else if(strcmp(cmd, comands_names[POP]) == 0){
+            proc->ip++;
 
-            fprintf(code_txt,"%04d   %02x\t\t\t POP\n", position, POP);
+            fscanf(file_asm, "%s", reg);
+
+            if(strcmp(reg, "rax") == 0)
+                code[proc->ip] = 1;
+            else if(strcmp(reg, "rbx") == 0)
+                code[proc->ip] = 2;
+            else if(strcmp(reg, "rcx") == 0)
+                code[proc->ip] = 3;
+            else if(strcmp(reg, "rdx") == 0)
+                code[proc->ip] = 4;
+            else{
+                pop_cmd = 1;
+                strcpy(cmd, reg);
+
+                fprintf(code_txt,"%04d   %02x\t\t\t POP\n", proc->ip - 1, POP);
+
+                break;
+            }
+
+            printf("%d\n", code[proc->ip]);
+            fprintf(code_txt,"%04d   %02x %02x\t\t RPOP %d\n", proc->ip - 1, RPOP, code[proc->ip], code[proc->ip]);
+
+            proc->ip++;
+
         }
 
-        else if(strcmp(str, comands_names[MUL]) == 0){
-            code[index] = MUL;
-            index++;
-            fprintf(code_txt,"%04d   %02x\t\t\t MUL\n", position, MUL);
+        else if(strcmp(cmd, comands_names[MUL]) == 0){
+            code[proc->ip] = MUL;
+            fprintf(code_txt,"%04d   %02x\t\t\t MUL\n", proc->ip, MUL);
 
-            position++;
+            proc->ip++;
         }
-        else if(strcmp(str, comands_names[SUB]) == 0){
-            code[index] = SUB;
-            index++;
-            fprintf(code_txt,"%04d   %02x\t\t\t SUB\n", position, SUB);
+        else if(strcmp(cmd, comands_names[SUB]) == 0){
+            code[proc->ip] = SUB;
+            fprintf(code_txt,"%04d   %02x\t\t\t SUB\n", proc->ip, SUB);
 
-            position++;
+            proc->ip++;
         }
-        else if(strcmp(str, comands_names[ADD]) == 0){
-            code[index] = ADD;
-            index++;
-            fprintf(code_txt,"%04d   %02x\t\t\t ADD\n", position, ADD);
+        else if(strcmp(cmd, comands_names[ADD]) == 0){
+            code[proc->ip] = ADD;
+            fprintf(code_txt,"%04d   %02x\t\t\t ADD\n", proc->ip, ADD);
 
-            position++;
+            proc->ip++;
         }
-        else if(strcmp(str, comands_names[OUT]) == 0){
-            code[index] = OUT;
-            index++;
-            fprintf(code_txt,"%04d   %02x\t\t\t OUT\n", position, OUT);
+        else if(strcmp(cmd, comands_names[OUT]) == 0){
+            code[proc->ip] = OUT;
+            fprintf(code_txt,"%04d   %02x\t\t\t OUT\n", proc->ip, OUT);
 
-            position++;
+            proc->ip++;
         }
-        else if(strcmp(str, comands_names[HLT]) == 0){
-            code[index] = HLT;
-            index++;
-            fprintf(code_txt,"%04d   %02x\t\t\t HLT\n", position, HLT);
+        else if(strcmp(cmd, comands_names[HLT]) == 0){
+            code[proc->ip] = HLT;
+            fprintf(code_txt,"%04d   %02x\t\t\t HLT\n", proc->ip, HLT);
 
-            position++;
+            proc->ip++;
         }
-        else if(strcmp(str, comands_names[IN]) == 0){
-            code[index] = IN;
-            index++;
-            fprintf(code_txt,"%04d   %02x\t\t\t IN\n", position, IN);
+        else if(strcmp(cmd, comands_names[IN]) == 0){
+            code[proc->ip] = IN;
+            fprintf(code_txt,"%04d   %02x\t\t\t IN\n", proc->ip, IN);
 
-            position++;
+            proc->ip++;
         }/**/
 
     }
 
-    code[index] = '\0';
+    code[proc->ip] = '\0';
 
-    proc->size_code = index;
+    proc->size_code = proc->ip;
 
-    for(len = 0; len < index; len++)
+    for(len = 0; len < proc->ip; len++)
             fprintf(code_txt, "%d" ,code[len]);
 
     fprintf(code_txt, "\n");
 
-    fwrite(code, sizeof(code[0]), index, proc->code_bin);/**/
+    fwrite(code, sizeof(code[0]), proc->ip, proc->code_bin);/**/
 
     free(code);
     code = NULL;
 
     return code;
+
 }
 
 int listing(FILE* file_lst, int* code)
