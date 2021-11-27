@@ -16,12 +16,6 @@
     #define DATA_USE_CANARY
 #endif // CHECK
 
-#define DUMPSTACK(reason)\
-    if(!stack_ok(stack1)){\
-    fprintf(stack1->file_with_errors, "Called from %s() at %s(%d),\n", __FUNCTION__, __FILE__, __LINE__);\
-    stack_dump(stack1, reason);\
-}
-
 static int CHANGE = 2;
 static const int POISON = 666;
 static int* POINTER_13 = (int*)13;
@@ -29,6 +23,7 @@ static const int CANARY_VALUE = 0xBADDED;
 static int previous_hash_value;
 static int hash_value;
 
+//10
 typedef enum comands{
     OUT   = 0,
     HLT   = 1,
@@ -77,7 +72,6 @@ struct Stack
     int pop_change = 2;
     int push_change = 2;
 
-
     FILE* file_with_errors = NULL;
 
     #ifdef STACK_USE_CANARY
@@ -87,9 +81,10 @@ struct Stack
 
 
 typedef struct processor{
+    struct Stack* stk;
     int regs[4];
-    struct Stack stack1 = {};
     int* code;
+    int ip = 0;
     long int size_code = 0;
     FILE* code_bin = NULL;
 }Processor;

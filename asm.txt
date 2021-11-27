@@ -1,12 +1,17 @@
-push 5
-push 5
-mul
-push 100
-push 6
-mul
-add
-push 5
 in
+pop rax
+in
+pop rbx
+in
+pop rcx
+push rbx
+push rbx
+mul
+push 4
+push rax
+push rcx
+mul
+mul
 sub
 out
 hlt

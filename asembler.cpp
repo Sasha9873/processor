@@ -71,8 +71,13 @@ int* asembler(FILE* file_asm, FILE* code_txt, errors_t* error, struct processor*
             int* code = (int*)calloc(capacity, sizeof(int));
         }
 
-        if(fscanf(file_asm, "%s", cmd) != 1)
-            break;
+        if(pop_cmd == 1){
+            pop_cmd = 0;
+        }
+        else {
+            if(fscanf(file_asm, "%s", cmd) != 1)
+                break;
+        }
 
         if(strcmp(cmd, comands_names[PUSH]) == 0){
             getc(file_asm);
@@ -126,7 +131,8 @@ int* asembler(FILE* file_asm, FILE* code_txt, errors_t* error, struct processor*
         else if(strcmp(cmd, comands_names[POP]) == 0){
             proc->ip++;
 
-            fscanf(file_asm, "%s", reg);
+            if(fscanf(file_asm, "%s", reg) != 1)
+                break;
 
             if(strcmp(reg, "rax") == 0)
                 code[proc->ip] = 1;
@@ -137,6 +143,8 @@ int* asembler(FILE* file_asm, FILE* code_txt, errors_t* error, struct processor*
             else if(strcmp(reg, "rdx") == 0)
                 code[proc->ip] = 4;
             else{
+                code[proc->ip - 1] = POP;
+
                 pop_cmd = 1;
                 strcpy(cmd, reg);
 
@@ -145,7 +153,9 @@ int* asembler(FILE* file_asm, FILE* code_txt, errors_t* error, struct processor*
                 break;
             }
 
-            printf("%d\n", code[proc->ip]);
+            code[proc->ip - 1] = RPOP;
+
+            printf("reg %d\n", code[proc->ip]);
             fprintf(code_txt,"%04d   %02x %02x\t\t RPOP %d\n", proc->ip - 1, RPOP, code[proc->ip], code[proc->ip]);
 
             proc->ip++;

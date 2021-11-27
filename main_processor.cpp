@@ -1,17 +1,20 @@
+#include "header.h"
 #include "processor_header.h"
 #include "processor.cpp"
-
+#include "stack.cpp"
 
 int main()
 {
     Processor proc = {};
-    Stack stk = {};
+    proc.stk = (struct Stack*)calloc(1, sizeof(Stack));
+    *proc.stk = {};
 
     FILE* code_txt = fopen("code.txt", "r");
-    proc.code_bin = fopen("code.bin", "r");
-    stk.file_with_errors = fopen("listing.txt", "w+");
+    if((proc.code_bin = fopen("code.bin", "r")) == NULL)
+        NULL_CODE_BIN;
+    proc.stk->file_with_errors = fopen("listing.txt", "w+");
 
-    stack_ctor(&stk);
+    stack_ctor(proc.stk);
 
     printf("\n    %d\n", proc.size_code);
 
@@ -29,9 +32,9 @@ int main()
             printf("%d" ,proc.code[len]);
     printf("\n");
 
-    execute(&stk, &proc);
+    execute(&proc);
 
-    fclose(code_txt);
+    fclose(code_txt);/**/
 
     return 0;
 }
