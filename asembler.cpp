@@ -8,6 +8,7 @@ typedef enum errors{
     ALL_OK     =  0,
     NOT_MEMORY = -1,
     BAD_REG    = -2,
+    BAD_ENTRY  = -3,
 }errors_t;
 
 
@@ -27,8 +28,8 @@ int main()
     printf("%p\n", proc.code);
     proc.code = asembler(file_asm, code_txt, &error, &proc);
 
-    printf("\n \n \n%s", proc.code);
-    printf("\n    %d\n", proc.size_code);
+    printf("\n \n \n%n", proc.code);
+    printf("\n    %ld\n", proc.size_code);
 
     fclose(file_asm);
     fclose(code_txt);
@@ -42,6 +43,8 @@ int* asembler(FILE* file_asm, FILE* code_txt, errors_t* error, struct processor*
 {
     char cmd[10];
     char reg[10];
+
+    char str[40];
     char sym = '\0';
     int capacity = 10;
     int* code = (int*)calloc(capacity, sizeof(int));
@@ -71,26 +74,19 @@ int* asembler(FILE* file_asm, FILE* code_txt, errors_t* error, struct processor*
             int* code = (int*)calloc(capacity, sizeof(int));
         }
 
-        if(pop_cmd == 1){
-            pop_cmd = 0;
-        }
-        else {
-            if(fscanf(file_asm, "%s", cmd) != 1)
-                break;
-        }
+        if(fgets(str, 40, file_asm) == NULL)
+            return code;
+
+        char trash[10];
+
+        int k1 = sscanf(str, "%s %d %s", cmd, &value, trash);
+        int k2 = sscanf(str, "%s %s %s", cmd, reg, trash);
+        printf("k1 = %d k2 = %d %s %s %s\n", k1, k2, cmd, reg, trash);
+
 
         if(strcmp(cmd, comands_names[PUSH]) == 0){
-            getc(file_asm);
-            /*while((sym = fgetc(file_asm)) == '\n' || sym == ' ' || sym =='\t')  //miss all white symbols
-                sym = getc(file_asm);
-            if(sym == EOF)
-                break;
-            else{
-                printf("sss = %d\n", sym);
-                fseek(file_asm, ftell(file_asm) - sizeof(char), SEEK_SET);     //returns to first not white symbol
-            }*/
 
-            if(fscanf(file_asm, "%d", &value) == 1){
+            if(k1 == 2){
                 code[proc->ip] = PUSH;
                 printf("%d ", code[proc->ip]);
                 proc->ip++;
@@ -106,7 +102,6 @@ int* asembler(FILE* file_asm, FILE* code_txt, errors_t* error, struct processor*
                 printf("%d ", code[proc->ip]);
                 proc->ip++;
 
-                fscanf(file_asm, "%s", reg);
                 if(strcmp(reg, "rax") == 0)
                     code[proc->ip] = 1;
                 else if(strcmp(reg, "rbx") == 0)
@@ -117,6 +112,7 @@ int* asembler(FILE* file_asm, FILE* code_txt, errors_t* error, struct processor*
                     code[proc->ip] = 4;
                 else{
                     *error = BAD_REG;
+                    printf("BAD_REG");
                     return code;
                 }
 
@@ -131,34 +127,31 @@ int* asembler(FILE* file_asm, FILE* code_txt, errors_t* error, struct processor*
         else if(strcmp(cmd, comands_names[POP]) == 0){
             proc->ip++;
 
-            if(fscanf(file_asm, "%s", reg) != 1)
-                break;
+            if(k2 == 2){
+                if(strcmp(reg, "rax") == 0)
+                    code[proc->ip] = 1;
+                else if(strcmp(reg, "rbx") == 0)
+                    code[proc->ip] = 2;
+                else if(strcmp(reg, "rcx") == 0)
+                    code[proc->ip] = 3;
+                else if(strcmp(reg, "rdx") == 0)
+                    code[proc->ip] = 4;
+                else{
+                    *error = BAD_REG;
+                    return code;
+                    }
+                code[proc->ip - 1] = RPOP;
 
-            if(strcmp(reg, "rax") == 0)
-                code[proc->ip] = 1;
-            else if(strcmp(reg, "rbx") == 0)
-                code[proc->ip] = 2;
-            else if(strcmp(reg, "rcx") == 0)
-                code[proc->ip] = 3;
-            else if(strcmp(reg, "rdx") == 0)
-                code[proc->ip] = 4;
+                printf("reg %d\n", code[proc->ip]);
+                fprintf(code_txt,"%04d   %02x %02x\t\t RPOP %d\n", proc->ip - 1, RPOP, code[proc->ip], code[proc->ip]);
+
+                proc->ip++;
+            }
             else{
                 code[proc->ip - 1] = POP;
-
-                pop_cmd = 1;
-                strcpy(cmd, reg);
-
                 fprintf(code_txt,"%04d   %02x\t\t\t POP\n", proc->ip - 1, POP);
-
-                break;
             }
-
-            code[proc->ip - 1] = RPOP;
-
-            printf("reg %d\n", code[proc->ip]);
-            fprintf(code_txt,"%04d   %02x %02x\t\t RPOP %d\n", proc->ip - 1, RPOP, code[proc->ip], code[proc->ip]);
-
-            proc->ip++;
+            
 
         }
 
@@ -197,7 +190,7 @@ int* asembler(FILE* file_asm, FILE* code_txt, errors_t* error, struct processor*
             fprintf(code_txt,"%04d   %02x\t\t\t IN\n", proc->ip, IN);
 
             proc->ip++;
-        }/**/
+        }
 
     }
 
@@ -219,7 +212,7 @@ int* asembler(FILE* file_asm, FILE* code_txt, errors_t* error, struct processor*
 
 }
 
-int listing(FILE* file_lst, int* code)
+/*int listing(FILE* file_lst, int* code)
 {
     //fprintf("%p ", )
-}
+}*/
