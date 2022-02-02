@@ -1,266 +1,331 @@
-Called from stack_ctor() at C:\Users\lenovo\Desktop\infa\C\summer_school\processor\processor.cpp(31),
-Stack[000000000062fd80](ok)
+Called from stack_ctor() at stack.cpp(31),
+Stack[0x55b7851e82a0](ok)
 {
    capacity = 3
    current size = 0
-   data[000000000062fd90] = 0000000000ab1520
+   data[0x55b7851e82b0] = 0x55b7851e8870
    {
-      *[0](0000000000ab1520, 0000000000ab1520) = 0
-      *[1](0000000000ab1524, 0000000000ab1524) = 0
-      *[2](0000000000ab1528, 0000000000ab1528) = 0
+      *[0](0x55b7851e8870, 0x55b7851e8870) = 0
+      *[1](0x55b7851e8874, 0x55b7851e8874) = 0
+      *[2](0x55b7851e8878, 0x55b7851e8878) = 0
    }
-   file_with_errors[000000000062fda0] = 00007fff2fb0faf0
+   file_with_errors[0x55b7851e82c0] = 0x55b7851e8690
 }
 
-Called from stack_push() at C:\Users\lenovo\Desktop\infa\C\summer_school\processor\processor.cpp(289),
-Stack[000000000062fd80](ok)
+Called from stack_push() at stack.cpp(151),
+Stack[0x55b7851e82a0](ok)
 {
    capacity = 3
    current size = 1
-   data[000000000062fd90] = 0000000000ab1520
+   data[0x55b7851e82b0] = 0x55b7851e8870
    {
-      *[0](0000000000ab1520, 0000000000ab1520) = 5
-      [1](0000000000ab1524, 0000000000ab1524) = 0
-      [2](0000000000ab1528, 0000000000ab1528) = 0
+      *[0](0x55b7851e8870, 0x55b7851e8870) = 4
+      [1](0x55b7851e8874, 0x55b7851e8874) = 0
+      [2](0x55b7851e8878, 0x55b7851e8878) = 0
    }
-   file_with_errors[000000000062fda0] = 00007fff2fb0faf0
+   file_with_errors[0x55b7851e82c0] = 0x55b7851e8690
 }
 
-Called from stack_push() at C:\Users\lenovo\Desktop\infa\C\summer_school\processor\processor.cpp(289),
-Stack[000000000062fd80](ok)
+Called from stack_pop() at stack.cpp(189),
+Stack[0x55b7851e82a0](ok)
 {
-   capacity = 3
-   current size = 2
-   data[000000000062fd90] = 0000000000ab1520
+   capacity = 1
+   current size = 0
+   data[0x55b7851e82b0] = 0x55b7851e8870
    {
-      *[0](0000000000ab1520, 0000000000ab1520) = 5
-      *[1](0000000000ab1524, 0000000000ab1524) = 5
-      [2](0000000000ab1528, 0000000000ab1528) = 0
+      *[0](0x55b7851e8870, 0x55b7851e8870) = 666
    }
-   file_with_errors[000000000062fda0] = 00007fff2fb0faf0
+   file_with_errors[0x55b7851e82c0] = 0x55b7851e8690
 }
 
-Called from stack_pop() at C:\Users\lenovo\Desktop\infa\C\summer_school\processor\processor.cpp(327),
-Stack[000000000062fd80](ok)
+Called from stack_push() at stack.cpp(151),
+Stack[0x55b7851e82a0](ok)
 {
    capacity = 1
    current size = 1
-   data[000000000062fd90] = 0000000000ab1520
+   data[0x55b7851e82b0] = 0x55b7851e8870
    {
-      *[0](0000000000ab1520, 0000000000ab1520) = 5
+      *[0](0x55b7851e8870, 0x55b7851e8870) = 5
    }
-   file_with_errors[000000000062fda0] = 00007fff2fb0faf0
+   file_with_errors[0x55b7851e82c0] = 0x55b7851e8690
 }
 
-Called from stack_pop() at C:\Users\lenovo\Desktop\infa\C\summer_school\processor\processor.cpp(327),
-Stack[000000000062fd80](ok)
+Called from stack_pop() at stack.cpp(189),
+Stack[0x55b7851e82a0](ok)
 {
    capacity = 0
    current size = 0
-   data[000000000062fd90] = 0000000000000000
+   data[0x55b7851e82b0] = (nil)
    {
    }
-   file_with_errors[000000000062fda0] = 00007fff2fb0faf0
+   file_with_errors[0x55b7851e82c0] = 0x55b7851e8690
 }
 
-Called from stack_push() at C:\Users\lenovo\Desktop\infa\C\summer_school\processor\processor.cpp(289),
-Stack[000000000062fd80](ok)
+Called from stack_push() at stack.cpp(151),
+Stack[0x55b7851e82a0](ok)
 {
    capacity = 3
    current size = 1
-   data[000000000062fd90] = 0000000000ab1520
+   data[0x55b7851e82b0] = 0x55b7851e8870
    {
-      *[0](0000000000ab1520, 0000000000ab1520) = 25
-      [1](0000000000ab1524, 0000000000ab1524) = 0
-      [2](0000000000ab1528, 0000000000ab1528) = 11206992
+      *[0](0x55b7851e8870, 0x55b7851e8870) = 4
+      [1](0x55b7851e8874, 0x55b7851e8874) = 0
+      [2](0x55b7851e8878, 0x55b7851e8878) = 0
    }
-   file_with_errors[000000000062fda0] = 00007fff2fb0faf0
+   file_with_errors[0x55b7851e82c0] = 0x55b7851e8690
 }
 
-Called from stack_push() at C:\Users\lenovo\Desktop\infa\C\summer_school\processor\processor.cpp(289),
-Stack[000000000062fd80](ok)
-{
-   capacity = 3
-   current size = 2
-   data[000000000062fd90] = 0000000000ab1520
-   {
-      *[0](0000000000ab1520, 0000000000ab1520) = 25
-      *[1](0000000000ab1524, 0000000000ab1524) = 100
-      [2](0000000000ab1528, 0000000000ab1528) = 11206992
-   }
-   file_with_errors[000000000062fda0] = 00007fff2fb0faf0
-}
-
-Called from stack_push() at C:\Users\lenovo\Desktop\infa\C\summer_school\processor\processor.cpp(289),
-Stack[000000000062fd80](ok)
-{
-   capacity = 3
-   current size = 3
-   data[000000000062fd90] = 0000000000ab1520
-   {
-      *[0](0000000000ab1520, 0000000000ab1520) = 25
-      *[1](0000000000ab1524, 0000000000ab1524) = 100
-      *[2](0000000000ab1528, 0000000000ab1528) = 6
-   }
-   file_with_errors[000000000062fda0] = 00007fff2fb0faf0
-}
-
-Called from stack_pop() at C:\Users\lenovo\Desktop\infa\C\summer_school\processor\processor.cpp(327),
-Stack[000000000062fd80](ok)
-{
-   capacity = 3
-   current size = 2
-   data[000000000062fd90] = 0000000000ab1520
-   {
-      *[0](0000000000ab1520, 0000000000ab1520) = 25
-      *[1](0000000000ab1524, 0000000000ab1524) = 100
-      [2](0000000000ab1528, 0000000000ab1528) = 666
-   }
-   file_with_errors[000000000062fda0] = 00007fff2fb0faf0
-}
-
-Called from stack_pop() at C:\Users\lenovo\Desktop\infa\C\summer_school\processor\processor.cpp(327),
-Stack[000000000062fd80](ok)
-{
-   capacity = 1
-   current size = 1
-   data[000000000062fd90] = 0000000000ab1520
-   {
-      *[0](0000000000ab1520, 0000000000ab1520) = 25
-   }
-   file_with_errors[000000000062fda0] = 00007fff2fb0faf0
-}
-
-Called from stack_push() at C:\Users\lenovo\Desktop\infa\C\summer_school\processor\processor.cpp(289),
-Stack[000000000062fd80](ok)
-{
-   capacity = 6
-   current size = 2
-   data[000000000062fd90] = 0000000000ab1520
-   {
-      *[0](0000000000ab1520, 0000000000ab1520) = 25
-      *[1](0000000000ab1524, 0000000000ab1524) = 600
-      [2](0000000000ab1528, 0000000000ab1528) = 666
-      [3](0000000000ab152c, 0000000000ab152c) = 0
-      [4](0000000000ab1530, 0000000000ab1530) = 0
-      [5](0000000000ab1534, 0000000000ab1534) = 0
-   }
-   file_with_errors[000000000062fda0] = 00007fff2fb0faf0
-}
-
-Called from stack_pop() at C:\Users\lenovo\Desktop\infa\C\summer_school\processor\processor.cpp(327),
-Stack[000000000062fd80](ok)
-{
-   capacity = 3
-   current size = 1
-   data[000000000062fd90] = 0000000000ab1520
-   {
-      *[0](0000000000ab1520, 0000000000ab1520) = 25
-      [1](0000000000ab1524, 0000000000ab1524) = 666
-      [2](0000000000ab1528, 0000000000ab1528) = 666
-   }
-   file_with_errors[000000000062fda0] = 00007fff2fb0faf0
-}
-
-Called from stack_pop() at C:\Users\lenovo\Desktop\infa\C\summer_school\processor\processor.cpp(327),
-Stack[000000000062fd80](ok)
+Called from stack_pop() at stack.cpp(189),
+Stack[0x55b7851e82a0](ok)
 {
    capacity = 1
    current size = 0
-   data[000000000062fd90] = 0000000000ab1520
+   data[0x55b7851e82b0] = 0x55b7851e8870
    {
-      *[0](0000000000ab1520, 0000000000ab1520) = 666
+      *[0](0x55b7851e8870, 0x55b7851e8870) = 666
    }
-   file_with_errors[000000000062fda0] = 00007fff2fb0faf0
+   file_with_errors[0x55b7851e82c0] = 0x55b7851e8690
 }
 
-Called from stack_push() at C:\Users\lenovo\Desktop\infa\C\summer_school\processor\processor.cpp(289),
-Stack[000000000062fd80](ok)
+Called from stack_push() at stack.cpp(151),
+Stack[0x55b7851e82a0](ok)
 {
    capacity = 1
    current size = 1
-   data[000000000062fd90] = 0000000000ab1520
+   data[0x55b7851e82b0] = 0x55b7851e8870
    {
-      *[0](0000000000ab1520, 0000000000ab1520) = 625
+      *[0](0x55b7851e8870, 0x55b7851e8870) = 5
    }
-   file_with_errors[000000000062fda0] = 00007fff2fb0faf0
+   file_with_errors[0x55b7851e82c0] = 0x55b7851e8690
 }
 
-Called from stack_push() at C:\Users\lenovo\Desktop\infa\C\summer_school\processor\processor.cpp(289),
-Stack[000000000062fd80](ok)
+Called from stack_push() at stack.cpp(151),
+Stack[0x55b7851e82a0](ok)
 {
    capacity = 6
    current size = 2
-   data[000000000062fd90] = 0000000000ab1520
+   data[0x55b7851e82b0] = 0x55b7851e8870
    {
-      *[0](0000000000ab1520, 0000000000ab1520) = 625
-      *[1](0000000000ab1524, 0000000000ab1524) = 5
-      [2](0000000000ab1528, 0000000000ab1528) = 666
-      [3](0000000000ab152c, 0000000000ab152c) = 0
-      [4](0000000000ab1530, 0000000000ab1530) = 0
-      [5](0000000000ab1534, 0000000000ab1534) = 0
+      *[0](0x55b7851e8870, 0x55b7851e8870) = 5
+      *[1](0x55b7851e8874, 0x55b7851e8874) = 5
+      [2](0x55b7851e8878, 0x55b7851e8878) = 0
+      [3](0x55b7851e887c, 0x55b7851e887c) = 0
+      [4](0x55b7851e8880, 0x55b7851e8880) = 0
+      [5](0x55b7851e8884, 0x55b7851e8884) = 0
    }
-   file_with_errors[000000000062fda0] = 00007fff2fb0faf0
+   file_with_errors[0x55b7851e82c0] = 0x55b7851e8690
 }
 
-Called from stack_push() at C:\Users\lenovo\Desktop\infa\C\summer_school\processor\processor.cpp(289),
-Stack[000000000062fd80](ok)
+Called from stack_pop() at stack.cpp(189),
+Stack[0x55b7851e82a0](ok)
+{
+   capacity = 3
+   current size = 1
+   data[0x55b7851e82b0] = 0x55b7851e8870
+   {
+      *[0](0x55b7851e8870, 0x55b7851e8870) = 5
+      [1](0x55b7851e8874, 0x55b7851e8874) = 666
+      [2](0x55b7851e8878, 0x55b7851e8878) = 0
+   }
+   file_with_errors[0x55b7851e82c0] = 0x55b7851e8690
+}
+
+Called from stack_pop() at stack.cpp(189),
+Stack[0x55b7851e82a0](ok)
+{
+   capacity = 1
+   current size = 0
+   data[0x55b7851e82b0] = 0x55b7851e8870
+   {
+      *[0](0x55b7851e8870, 0x55b7851e8870) = 666
+   }
+   file_with_errors[0x55b7851e82c0] = 0x55b7851e8690
+}
+
+Called from stack_push() at stack.cpp(151),
+Stack[0x55b7851e82a0](ok)
+{
+   capacity = 1
+   current size = 1
+   data[0x55b7851e82b0] = 0x55b7851e8870
+   {
+      *[0](0x55b7851e8870, 0x55b7851e8870) = 25
+   }
+   file_with_errors[0x55b7851e82c0] = 0x55b7851e8690
+}
+
+Called from stack_push() at stack.cpp(151),
+Stack[0x55b7851e82a0](ok)
+{
+   capacity = 6
+   current size = 2
+   data[0x55b7851e82b0] = 0x55b7851e8870
+   {
+      *[0](0x55b7851e8870, 0x55b7851e8870) = 25
+      *[1](0x55b7851e8874, 0x55b7851e8874) = 4
+      [2](0x55b7851e8878, 0x55b7851e8878) = 0
+      [3](0x55b7851e887c, 0x55b7851e887c) = 0
+      [4](0x55b7851e8880, 0x55b7851e8880) = 0
+      [5](0x55b7851e8884, 0x55b7851e8884) = 0
+   }
+   file_with_errors[0x55b7851e82c0] = 0x55b7851e8690
+}
+
+Called from stack_push() at stack.cpp(151),
+Stack[0x55b7851e82a0](ok)
 {
    capacity = 6
    current size = 3
-   data[000000000062fd90] = 0000000000ab1520
+   data[0x55b7851e82b0] = 0x55b7851e8870
    {
-      *[0](0000000000ab1520, 0000000000ab1520) = 625
-      *[1](0000000000ab1524, 0000000000ab1524) = 5
-      *[2](0000000000ab1528, 0000000000ab1528) = 10
-      [3](0000000000ab152c, 0000000000ab152c) = 0
-      [4](0000000000ab1530, 0000000000ab1530) = 0
-      [5](0000000000ab1534, 0000000000ab1534) = 0
+      *[0](0x55b7851e8870, 0x55b7851e8870) = 25
+      *[1](0x55b7851e8874, 0x55b7851e8874) = 4
+      *[2](0x55b7851e8878, 0x55b7851e8878) = 4
+      [3](0x55b7851e887c, 0x55b7851e887c) = 0
+      [4](0x55b7851e8880, 0x55b7851e8880) = 0
+      [5](0x55b7851e8884, 0x55b7851e8884) = 0
    }
-   file_with_errors[000000000062fda0] = 00007fff2fb0faf0
+   file_with_errors[0x55b7851e82c0] = 0x55b7851e8690
 }
 
-Called from stack_pop() at C:\Users\lenovo\Desktop\infa\C\summer_school\processor\processor.cpp(327),
-Stack[000000000062fd80](ok)
+Called from stack_push() at stack.cpp(151),
+Stack[0x55b7851e82a0](ok)
+{
+   capacity = 6
+   current size = 4
+   data[0x55b7851e82b0] = 0x55b7851e8870
+   {
+      *[0](0x55b7851e8870, 0x55b7851e8870) = 25
+      *[1](0x55b7851e8874, 0x55b7851e8874) = 4
+      *[2](0x55b7851e8878, 0x55b7851e8878) = 4
+      *[3](0x55b7851e887c, 0x55b7851e887c) = 4
+      [4](0x55b7851e8880, 0x55b7851e8880) = 0
+      [5](0x55b7851e8884, 0x55b7851e8884) = 0
+   }
+   file_with_errors[0x55b7851e82c0] = 0x55b7851e8690
+}
+
+Called from stack_pop() at stack.cpp(189),
+Stack[0x55b7851e82a0](ok)
+{
+   capacity = 3
+   current size = 3
+   data[0x55b7851e82b0] = 0x55b7851e8870
+   {
+      *[0](0x55b7851e8870, 0x55b7851e8870) = 25
+      *[1](0x55b7851e8874, 0x55b7851e8874) = 4
+      *[2](0x55b7851e8878, 0x55b7851e8878) = 4
+   }
+   file_with_errors[0x55b7851e82c0] = 0x55b7851e8690
+}
+
+Called from stack_pop() at stack.cpp(189),
+Stack[0x55b7851e82a0](ok)
 {
    capacity = 3
    current size = 2
-   data[000000000062fd90] = 0000000000ab1520
+   data[0x55b7851e82b0] = 0x55b7851e8870
    {
-      *[0](0000000000ab1520, 0000000000ab1520) = 625
-      *[1](0000000000ab1524, 0000000000ab1524) = 5
-      [2](0000000000ab1528, 0000000000ab1528) = 666
+      *[0](0x55b7851e8870, 0x55b7851e8870) = 25
+      *[1](0x55b7851e8874, 0x55b7851e8874) = 4
+      [2](0x55b7851e8878, 0x55b7851e8878) = 666
    }
-   file_with_errors[000000000062fda0] = 00007fff2fb0faf0
+   file_with_errors[0x55b7851e82c0] = 0x55b7851e8690
 }
 
-Called from stack_pop() at C:\Users\lenovo\Desktop\infa\C\summer_school\processor\processor.cpp(327),
-Stack[000000000062fd80](ok)
+Called from stack_push() at stack.cpp(151),
+Stack[0x55b7851e82a0](ok)
+{
+   capacity = 3
+   current size = 3
+   data[0x55b7851e82b0] = 0x55b7851e8870
+   {
+      *[0](0x55b7851e8870, 0x55b7851e8870) = 25
+      *[1](0x55b7851e8874, 0x55b7851e8874) = 4
+      *[2](0x55b7851e8878, 0x55b7851e8878) = 16
+   }
+   file_with_errors[0x55b7851e82c0] = 0x55b7851e8690
+}
+
+Called from stack_pop() at stack.cpp(189),
+Stack[0x55b7851e82a0](ok)
+{
+   capacity = 3
+   current size = 2
+   data[0x55b7851e82b0] = 0x55b7851e8870
+   {
+      *[0](0x55b7851e8870, 0x55b7851e8870) = 25
+      *[1](0x55b7851e8874, 0x55b7851e8874) = 4
+      [2](0x55b7851e8878, 0x55b7851e8878) = 666
+   }
+   file_with_errors[0x55b7851e82c0] = 0x55b7851e8690
+}
+
+Called from stack_pop() at stack.cpp(189),
+Stack[0x55b7851e82a0](ok)
 {
    capacity = 1
    current size = 1
-   data[000000000062fd90] = 0000000000ab1520
+   data[0x55b7851e82b0] = 0x55b7851e8870
    {
-      *[0](0000000000ab1520, 0000000000ab1520) = 625
+      *[0](0x55b7851e8870, 0x55b7851e8870) = 25
    }
-   file_with_errors[000000000062fda0] = 00007fff2fb0faf0
+   file_with_errors[0x55b7851e82c0] = 0x55b7851e8690
 }
 
-Called from stack_push() at C:\Users\lenovo\Desktop\infa\C\summer_school\processor\processor.cpp(289),
-Stack[000000000062fd80](ok)
+Called from stack_push() at stack.cpp(151),
+Stack[0x55b7851e82a0](ok)
 {
    capacity = 6
    current size = 2
-   data[000000000062fd90] = 0000000000ab1520
+   data[0x55b7851e82b0] = 0x55b7851e8870
    {
-      *[0](0000000000ab1520, 0000000000ab1520) = 625
-      *[1](0000000000ab1524, 0000000000ab1524) = -5
-      [2](0000000000ab1528, 0000000000ab1528) = 666
-      [3](0000000000ab152c, 0000000000ab152c) = 0
-      [4](0000000000ab1530, 0000000000ab1530) = 0
-      [5](0000000000ab1534, 0000000000ab1534) = 0
+      *[0](0x55b7851e8870, 0x55b7851e8870) = 25
+      *[1](0x55b7851e8874, 0x55b7851e8874) = 64
+      [2](0x55b7851e8878, 0x55b7851e8878) = 666
+      [3](0x55b7851e887c, 0x55b7851e887c) = 666
+      [4](0x55b7851e8880, 0x55b7851e8880) = 0
+      [5](0x55b7851e8884, 0x55b7851e8884) = 0
    }
-   file_with_errors[000000000062fda0] = 00007fff2fb0faf0
+   file_with_errors[0x55b7851e82c0] = 0x55b7851e8690
+}
+
+Called from stack_pop() at stack.cpp(189),
+Stack[0x55b7851e82a0](ok)
+{
+   capacity = 3
+   current size = 1
+   data[0x55b7851e82b0] = 0x55b7851e8870
+   {
+      *[0](0x55b7851e8870, 0x55b7851e8870) = 25
+      [1](0x55b7851e8874, 0x55b7851e8874) = 666
+      [2](0x55b7851e8878, 0x55b7851e8878) = 666
+   }
+   file_with_errors[0x55b7851e82c0] = 0x55b7851e8690
+}
+
+Called from stack_pop() at stack.cpp(189),
+Stack[0x55b7851e82a0](ok)
+{
+   capacity = 1
+   current size = 0
+   data[0x55b7851e82b0] = 0x55b7851e8870
+   {
+      *[0](0x55b7851e8870, 0x55b7851e8870) = 666
+   }
+   file_with_errors[0x55b7851e82c0] = 0x55b7851e8690
+}
+
+Called from stack_push() at stack.cpp(151),
+Stack[0x55b7851e82a0](ok)
+{
+   capacity = 1
+   current size = 1
+   data[0x55b7851e82b0] = 0x55b7851e8870
+   {
+      *[0](0x55b7851e8870, 0x55b7851e8870) = -39
+   }
+   file_with_errors[0x55b7851e82c0] = 0x55b7851e8690
 }
 
 }

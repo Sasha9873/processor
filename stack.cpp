@@ -1,3 +1,5 @@
+#include "header.h"
+#include "processor_header.h"
 
 int stack_ctor(Stack* stack1)
 {
