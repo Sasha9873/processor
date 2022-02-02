@@ -1,4 +1,4 @@
-#define DEFCMD(name, num,...)\
+#define DEFCMD(name, num, arg,...)\
 	CMD_##name = num,
 
 enum comands{
