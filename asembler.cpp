@@ -1,7 +1,3 @@
-//failed if do push 10
-//что делать, если надо вернуться в файде на позицию назад
-//что делать с pop в регистрах
-
 #include "header.h"
 
 typedef enum errors{
@@ -28,13 +24,13 @@ int main()
     printf("%p\n", proc.code);
     proc.code = asembler(file_asm, code_txt, &error, &proc);
 
-    printf("\n \n \n%n", proc.code);
+    //printf("\n \n \n%n", proc.code);
     printf("\n    %ld\n", proc.size_code);
 
     fclose(file_asm);
     fclose(code_txt);
     fclose(proc.code_bin);
-    free(proc.code);
+    //free(proc.code);
 
     return 0;
 }
@@ -75,7 +71,7 @@ int* asembler(FILE* file_asm, FILE* code_txt, errors_t* error, struct processor*
         }
 
         if(fgets(str, 40, file_asm) == NULL)
-            return code;
+            break;
 
         char trash[10];
 
@@ -203,10 +199,10 @@ int* asembler(FILE* file_asm, FILE* code_txt, errors_t* error, struct processor*
 
     fprintf(code_txt, "\n");
 
-    fwrite(code, sizeof(code[0]), proc->ip, proc->code_bin);/**/
+    fwrite(code, sizeof(code[0]), proc->ip, proc->code_bin);
 
     free(code);
-    code = NULL;
+    code = NULL;/**/
 
     return code;
 
