@@ -1,7 +1,3 @@
-//failed if do push 10
-//что делать, если надо вернуться в файде на позицию назад
-//что делать с pop в регистрах
-
 #include "header.h"
 
 typedef enum errors{
@@ -18,9 +14,9 @@ int main()
 {
     struct processor proc = {};
 
-    FILE* file_asm = fopen("asm.txt", "r");
-    FILE* code_txt = fopen("code.txt", "w+");
-    proc.code_bin = fopen("code.bin", "w+");
+    FILE* file_asm = fopen("asm.txt", "rb");
+    FILE* code_txt = fopen("code.txt", "wb+");
+    proc.code_bin = fopen("code.bin", "wb+");
     printf("%p\n", file_asm);
 
     errors_t error;
