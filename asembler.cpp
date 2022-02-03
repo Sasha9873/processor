@@ -1,15 +1,7 @@
 #include "header.h"
+#include "enum.h"
+#include "asm.h"
 
-typedef enum errors{
-    ALL_OK     =  0,
-    NOT_MEMORY = -1,
-    BAD_REG    = -2,
-    BAD_ENTRY  = -3,
-}errors_t;
-
-
-int* asembler(FILE* file_asm, FILE* code_txt, errors_t* error, struct processor* proc);
-int listing(FILE* file_lst, int* code);
 
 int main()
 {

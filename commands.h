@@ -1,16 +1,3 @@
-typedef enum comands{
-    OUT   = 0,
-    HLT   = 1,
-    PUSH  = 17,
-    POP   = 18,
-    ADD   = 2,
-    SUB   = 3,
-    MUL   = 4,
-    IN    = 5,
-    RPOP  = 33,
-    RPUSH = 34,
-}comands_t;
-
 DEFCMD(OUT, 0, 0,{
 	stack_print(processor->stk);
 })

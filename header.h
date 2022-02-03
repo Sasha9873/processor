@@ -23,8 +23,7 @@ static const int CANARY_VALUE = 0xBADDED;
 static int previous_hash_value;
 static int hash_value;
 
-//10
-typedef enum comands{
+/*typedef enum comands{
     OUT   = 0,
     HLT   = 1,
     PUSH  = 17,
@@ -57,7 +56,7 @@ static const char *comands_names[] = {
         "",
         "push", //17
         "pop",
-};
+};*/
 
 struct Stack
 {
